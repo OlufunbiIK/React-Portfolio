@@ -1,38 +1,294 @@
-.App {
-  text-align: center;
-}
+/* Add this to your App.css or create a new patterns.css file */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Base animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes rotate-slow {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Theme-specific pattern enhancements */
+.theme-light {
+  --pattern-primary: rgba(59, 130, 246, 0.1);
+  --pattern-secondary: rgba(16, 185, 129, 0.1);
+  --pattern-accent: rgba(139, 92, 246, 0.05);
+}
+
+.theme-dark {
+  --pattern-primary: rgba(99, 102, 241, 0.15);
+  --pattern-secondary: rgba(34, 197, 94, 0.15);
+  --pattern-accent: rgba(168, 85, 247, 0.1);
+}
+
+.theme-ocean {
+  --pattern-primary: rgba(56, 189, 248, 0.2);
+  --pattern-secondary: rgba(14, 165, 233, 0.15);
+  --pattern-accent: rgba(6, 182, 212, 0.1);
+}
+
+.theme-forest {
+  --pattern-primary: rgba(34, 197, 94, 0.2);
+  --pattern-secondary: rgba(16, 185, 129, 0.15);
+  --pattern-accent: rgba(5, 150, 105, 0.1);
+}
+
+.theme-galaxy {
+  --pattern-primary: rgba(168, 85, 247, 0.2);
+  --pattern-secondary: rgba(99, 102, 241, 0.15);
+  --pattern-accent: rgba(79, 70, 229, 0.1);
+}
+
+/* Pattern-specific styles */
+.pattern-dots {
+  background-image: radial-gradient(
+      circle,
+      var(--pattern-primary) 2px,
+      transparent 2px
+    ),
+    radial-gradient(circle, var(--pattern-secondary) 1px, transparent 1px);
+  background-size: 60px 60px, 30px 30px;
+  background-position: 0 0, 15px 15px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.pattern-grid {
+  background-image: linear-gradient(var(--pattern-primary) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-primary) 1px, transparent 1px),
+    linear-gradient(var(--pattern-accent) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pattern-accent) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+.pattern-waves {
+  background-image: repeating-linear-gradient(
+      45deg,
+      var(--pattern-primary),
+      var(--pattern-primary) 2px,
+      transparent 2px,
+      transparent 10px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--pattern-secondary),
+      var(--pattern-secondary) 2px,
+      transparent 2px,
+      transparent 10px
+    );
+  background-size: 20px 20px;
+}
+
+.pattern-hexagon {
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    var(--pattern-primary) 0%,
+    transparent 70%
+  );
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+}
+
+/* Floating elements */
+.floating-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--pattern-primary);
+  animation: float 8s ease-in-out infinite;
+}
+
+.floating-shape:nth-child(1) {
+  width: 80px;
+  height: 80px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-shape:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+}
+
+.floating-shape:nth-child(3) {
+  width: 40px;
+  height: 40px;
+  top: 80%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.floating-shape:nth-child(4) {
+  width: 100px;
+  height: 100px;
+  top: 10%;
+  left: 70%;
+  animation-delay: 1s;
+}
+
+.floating-shape:nth-child(5) {
+  width: 50px;
+  height: 50px;
+  top: 40%;
+  left: 50%;
+  animation-delay: 3s;
+}
+
+/* Geometric patterns */
+.geometric-bg {
+  background-image: conic-gradient(
+      from 0deg at 50% 50%,
+      var(--pattern-primary),
+      var(--pattern-secondary),
+      var(--pattern-accent),
+      var(--pattern-primary)
+    ),
+    radial-gradient(
+      circle at 25% 25%,
+      var(--pattern-secondary) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      var(--pattern-accent) 0%,
+      transparent 50%
+    );
+  background-size: 200px 200px, 300px 300px, 400px 400px;
+  background-position: 0 0, 100px 100px, 200px 200px;
+  animation: rotate-slow 60s linear infinite;
+}
+
+/* Particle system styles */
+.particle-system {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--pattern-primary);
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Interactive hover effects */
+.theme-interactive-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-interactive-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--pattern-accent),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.theme-interactive-bg:hover::before {
+  left: 100%;
+}
+
+/* Custom scrollbar for themed experience */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--pattern-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pattern-secondary);
+}
+
+/* Theme transition effects */
+.theme-transition {
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-shape {
+    display: none;
+  }
+
+  .pattern-dots {
+    background-size: 40px 40px, 20px 20px;
+  }
+
+  .pattern-grid {
+    background-size: 60px 60px, 60px 60px, 15px 15px, 15px 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-shape,
+  .geometric-bg,
+  .particle {
+    animation: none;
   }
 }
