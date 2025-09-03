@@ -1,5 +1,16 @@
 import { useTheme } from "./providers/ThemeContext";
-import { Moon, Sun, Home, User, Code, FolderOpen, Mail } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  Home,
+  User,
+  Code,
+  FolderOpen,
+  Mail,
+  Droplets,
+  Trees,
+  Sparkles,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import FunbiDevLogo from "./utils/Logo";
 
@@ -16,6 +27,29 @@ export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const THEME_ICONS = {
+    light: (
+      // Show Moon (🌙) so user can switch to Dark
+      <Moon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
+    ),
+    dark: (
+      // Show Sun (☀️) so user can switch to Light
+      <Droplets className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+    ),
+    ocean: (
+      // Show Droplets (🌊) to select Ocean theme
+      <Trees className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+    ),
+    forest: (
+      // Show Trees (🌲) to select Forest theme
+      <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+    ),
+    galaxy: (
+      // Show Sparkles (✨) to select Galaxy theme
+      <Sun className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-spin" />
+    ),
+  };
 
   const navItems = [
     { name: "home", icon: Home },
@@ -496,12 +530,15 @@ export default function NavBar() {
                 }`}
               ></div>
 
-              <div className="relative z-10 transition-all duration-500 transform group-hover:scale-110">
+              {/* <div className="relative z-10 transition-all duration-500 transform group-hover:scale-110">
                 {isDarkTheme ? (
                   <Sun className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-spin" />
                 ) : (
                   <Moon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
                 )}
+              </div> */}
+              <div className="relative z-10 transition-all duration-500 transform group-hover:scale-110">
+                {THEME_ICONS[currentTheme]}
               </div>
             </button>
 
@@ -579,7 +616,7 @@ export default function NavBar() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.name)}
-                  className={`relative flex items-center space-x-3 w-full text-left px-3 sm:px-4 py-3 sm:py-4 mx-1 sm:mx-2 my-1 capitalize transition-all duration-500 rounded-xl overflow-hidden transform hover:scale-105 hover:-translate-y-1 group ${
+                  className={`relative flex items-center space-x-3 w-full text-right px-3 sm:px-4 py-3 sm:py-4 mx-1 sm:mx-2 my-1 capitalize transition-all duration-500 rounded-xl overflow-hidden transform hover:scale-105 hover:-translate-y-1 group ${
                     isActive
                       ? "text-white shadow-2xl shadow-purple-500/50"
                       : currentTheme === "light"
@@ -621,7 +658,7 @@ export default function NavBar() {
                     ></div>
                   </div>
 
-                  <div className="relative z-10 flex items-center space-x-3 w-full">
+                  <div className="relative z-10 flex items-center justify-end space-x-reverse space-x-3 gap-2 w-full">
                     <Icon
                       className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-500 transform group-hover:rotate-12 group-hover:scale-110 flex-shrink-0 ${
                         isActive
@@ -632,7 +669,7 @@ export default function NavBar() {
                       }`}
                     />
                     <span
-                      className={`text-sm sm:text-base font-semibold transition-all duration-500 flex-grow ${
+                      className={`text-sm sm:text-base font-semibold transition-all duration-500 ${
                         isActive
                           ? "drop-shadow-lg text-white"
                           : currentTheme === "light"

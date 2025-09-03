@@ -21,7 +21,8 @@ const projects = [
   {
     title: "A Money Tracker App",
     description:
-      "A full-stack e-commerce solution with payment integration and admin dashboard.",
+      "A money tracking app to manage expenses and income with ease.",
+
     image: money,
     tech: ["React", "Node.js", "Firebase", "Tailwind"],
     github: "https://github.com/OlufunbiIK/My-Money-Tracker",
@@ -32,7 +33,7 @@ const projects = [
   {
     title: "Quiz App",
     description:
-      "A collaborative quiz application with real-time updates and team features.",
+      "A quiz app with varieties of questions and interactive features.",
     image: know,
     tech: ["React", "Firebase", "Tailwind"],
     github: "https://github.com/OlufunbiIK/KnowIz",
@@ -43,9 +44,9 @@ const projects = [
   {
     title: "Food Tracker",
     description:
-      "A beautiful weather app with forecasts, maps, and location-based suggestions.",
+      "An app that helps track food consumption and nutrition easily.",
     image: food,
-    tech: ["React", "OpenWeather API", "Chart.js"],
+    tech: ["React", "Tailwind"],
     github: "https://github.com/OlufunbiIK/foodie-tracker",
     live: "https://foodie-tracker-wv7q.vercel.app/",
     color: "from-purple-500 to-purple-700",
@@ -54,11 +55,11 @@ const projects = [
   {
     title: "Innovation",
     description:
-      "Analytics dashboard for social media performance with beautiful visualizations.",
+      "A website for an architecture firm with modern design showcases.",
     image: innovation,
-    tech: ["Next.js", "D3.js", "PostgreSQL"],
-    github: "#",
-    live: "#",
+    tech: ["Next.js", "Tailwind"],
+    github: "https://github.com/OlufunbiIK/innovation",
+    live: "https://innovation-silk.vercel.app/",
     color: "from-pink-500 to-rose-600",
     accent: "bg-pink-500",
   },
@@ -398,9 +399,11 @@ export default function Project() {
                         </div>
 
                         {/* Enhanced action buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 relative z-10">
                           <a
                             href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 font-medium text-sm sm:text-base ${
                               darkMode
                                 ? "bg-gray-800/60 hover:bg-gray-700/60 text-gray-300 border border-gray-700/50"
@@ -410,8 +413,11 @@ export default function Project() {
                             <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                             Code
                           </a>
+
                           <a
                             href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r ${project.color} text-white rounded-lg sm:rounded-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 font-medium shadow-lg hover:shadow-xl text-sm sm:text-base`}
                           >
                             <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
