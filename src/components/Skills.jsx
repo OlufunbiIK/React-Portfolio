@@ -834,7 +834,7 @@ export default function Skills() {
       icon: <Code className="w-6 h-6" />,
       color: "from-yellow-400 to-orange-500",
       description: "Modern ES6+ development",
-      experience: "5+ years",
+      experience: "2+ years",
       projects: 30,
     },
     {
