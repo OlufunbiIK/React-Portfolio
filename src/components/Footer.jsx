@@ -1,8 +1,12 @@
+import React, { useState } from "react";
 import { Github, Linkedin, Mail, Heart, ExternalLink } from "lucide-react";
 import { useTheme } from "./providers/ThemeContext";
+import LegalModal from "./LegalModal";
 
 export default function Footer() {
   const { darkMode } = useTheme();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("terms");
 
   // Dynamic content - you can move this to props or a config file
   const footerData = {
@@ -19,13 +23,13 @@ export default function Footer() {
       {
         name: "LinkedIn",
         icon: <Linkedin className="w-5 h-5" />,
-        href: "linkedin.com/in/olufunbi-ibrahim-2bb29922a",
+        href: "https://linkedin.com/in/olufunbi-ibrahim-2bb29922a",
         color: "hover:text-blue-400",
       },
       {
         name: "Email",
         icon: <Mail className="w-5 h-5" />,
-        href: "mailto:your.email@example.com",
+        href: "mailto:olufunbiibrahim@gmail.com",
         color: "hover:text-green-400",
       },
     ],
@@ -62,132 +66,158 @@ export default function Footer() {
           ? "text-gray-400 hover:text-gray-200"
           : "text-gray-600 hover:text-gray-800"
       }`,
+      legal: `text-xs transition-colors duration-200 cursor-pointer hover:underline ${
+        darkMode
+          ? "text-gray-400 hover:text-gray-200"
+          : "text-gray-600 hover:text-gray-800"
+      }`,
     },
   };
 
+  const openModal = (type) => {
+    setModalType(type);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <footer id="footer" className={baseClasses.footer}>
-      <div className={baseClasses.container}>
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Brand Section */}
-          <div className="space-y-4">
-            <h3 className={`text-xl font-bold ${baseClasses.text.primary}`}>
-              {footerData.name}
-            </h3>
-            <p
-              className={`text-sm leading-relaxed ${baseClasses.text.secondary}`}
-            >
-              {footerData.tagline}
-            </p>
-            <div className="flex items-center gap-2">
-              <span className={`text-xs ${baseClasses.text.muted}`}>
-                Made with
-              </span>
-              <Heart
-                className={`w-3 h-3 ${
-                  darkMode ? "text-red-400" : "text-red-500"
-                } animate-pulse`}
-                fill="currentColor"
-              />
-              <span className={`text-xs ${baseClasses.text.muted}`}>
-                and lots of coffee
-              </span>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className={`text-lg font-semibold ${baseClasses.text.primary}`}>
-              Quick Links
-            </h4>
-            <nav className="flex flex-col space-y-2">
-              {footerData.quickLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className={`${baseClasses.links.quick} inline-flex items-center gap-1 w-fit`}
-                >
-                  {link.name}
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          {/* Connect Section */}
-          <div className="space-y-4">
-            <h4 className={`text-lg font-semibold ${baseClasses.text.primary}`}>
-              Let's Connect
-            </h4>
-            <div className="flex gap-3">
-              {footerData.social.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  title={social.name}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`
-                    ${baseClasses.links.social}
-                    ${
-                      darkMode
-                        ? "bg-gray-800 hover:bg-gray-700 text-gray-400"
-                        : "bg-gray-100 hover:bg-gray-200 text-gray-600"
-                    }
-                    ${social.color}
-                  `}
-                >
-                  {social.icon}
-                  <span className="sr-only">{social.name}</span>
-                </a>
-              ))}
-            </div>
-            <p className={`text-xs ${baseClasses.text.secondary}`}>
-              Feel free to reach out for collaborations or just to say hi!
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div
-          className={`pt-8 border-t ${
-            darkMode ? "border-gray-800" : "border-gray-200"
-          }`}
-        >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className={`text-sm ${baseClasses.text.secondary}`}>
-              © {footerData.year} {footerData.name}. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="#privacy"
-                className={`text-xs ${baseClasses.links.quick}`}
+    <>
+      <footer id="footer" className={baseClasses.footer}>
+        <div className={baseClasses.container}>
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand Section */}
+            <div className="space-y-4">
+              <h3 className={`text-xl font-bold ${baseClasses.text.primary}`}>
+                {footerData.name}
+              </h3>
+              <p
+                className={`text-sm leading-relaxed ${baseClasses.text.secondary}`}
               >
-                Privacy Policy
-              </a>
-              <span className={`text-xs ${baseClasses.text.muted}`}>•</span>
-              <a href="#terms" className={`text-xs ${baseClasses.links.quick}`}>
-                Terms of Service
-              </a>
+                {footerData.tagline}
+              </p>
+              <div className="flex items-center gap-2">
+                <span className={`text-xs ${baseClasses.text.muted}`}>
+                  Made with
+                </span>
+                <Heart
+                  className={`w-3 h-3 ${
+                    darkMode ? "text-red-400" : "text-red-500"
+                  } animate-pulse`}
+                  fill="currentColor"
+                />
+                <span className={`text-xs ${baseClasses.text.muted}`}>
+                  and lots of coffee
+                </span>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h4
+                className={`text-lg font-semibold ${baseClasses.text.primary}`}
+              >
+                Quick Links
+              </h4>
+              <nav className="flex flex-col space-y-2">
+                {footerData.quickLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className={`${baseClasses.links.quick} inline-flex items-center gap-1 w-fit group`}
+                  >
+                    {link.name}
+                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            {/* Connect Section */}
+            <div className="space-y-4">
+              <h4
+                className={`text-lg font-semibold ${baseClasses.text.primary}`}
+              >
+                Let's Connect
+              </h4>
+              <div className="flex gap-3">
+                {footerData.social.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    title={social.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`
+                      ${baseClasses.links.social}
+                      ${
+                        darkMode
+                          ? "bg-gray-800 hover:bg-gray-700 text-gray-400"
+                          : "bg-gray-100 hover:bg-gray-200 text-gray-600"
+                      }
+                      ${social.color}
+                    `}
+                  >
+                    {social.icon}
+                    <span className="sr-only">{social.name}</span>
+                  </a>
+                ))}
+              </div>
+              <p className={`text-xs ${baseClasses.text.secondary}`}>
+                Feel free to reach out for collaborations or just to say hi!
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div
+            className={`pt-8 border-t ${
+              darkMode ? "border-gray-800" : "border-gray-200"
+            }`}
+          >
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <p className={`text-sm ${baseClasses.text.secondary}`}>
+                © {footerData.year} {footerData.name}. All rights reserved.
+              </p>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => openModal("privacy")}
+                  className={baseClasses.links.legal}
+                >
+                  Privacy Policy
+                </button>
+                <span className={`text-xs ${baseClasses.text.muted}`}>•</span>
+                <button
+                  onClick={() => openModal("terms")}
+                  className={baseClasses.links.legal}
+                >
+                  Terms of Service
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Status Indicator */}
+          <div className="mt-6 flex justify-center">
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-2 h-2 rounded-full animate-pulse ${
+                  darkMode ? "bg-green-400" : "bg-green-500"
+                }`}
+              ></div>
+              <span className={`text-xs ${baseClasses.text.muted}`}>
+                Currently available for new projects
+              </span>
             </div>
           </div>
         </div>
+      </footer>
 
-        {/* Status Indicator */}
-        <div className="mt-6 flex justify-center">
-          <div className="flex items-center gap-2">
-            <div
-              className={`w-2 h-2 rounded-full animate-pulse ${
-                darkMode ? "bg-green-400" : "bg-green-500"
-              }`}
-            ></div>
-            <span className={`text-xs ${baseClasses.text.muted}`}>
-              Currently available for new projects
-            </span>
-          </div>
-        </div>
-      </div>
-    </footer>
+      {/* Legal Modal */}
+      <LegalModal isOpen={modalOpen} onClose={closeModal} type={modalType} />
+    </>
   );
 }

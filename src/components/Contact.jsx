@@ -8,63 +8,7 @@
 //   User,
 //   Calendar,
 // } from "lucide-react";
-
-// // Mock theme context for demonstration
-// const useTheme = () => {
-//   const [currentTheme, setCurrentTheme] = useState("dark");
-
-//   const THEME_MODES = {
-//     light: {
-//       name: "light",
-//       bg: "bg-gray-50",
-//       text: "text-black",
-//       pattern: "pattern-light",
-//     },
-//     dark: {
-//       name: "dark",
-//       bg: "bg-gray-900",
-//       text: "text-white",
-//       pattern: "pattern-dark",
-//     },
-//     ocean: {
-//       name: "ocean",
-//       bg: "bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900",
-//       text: "text-white",
-//       pattern: "pattern-ocean",
-//     },
-//     forest: {
-//       name: "forest",
-//       bg: "bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900",
-//       text: "text-white",
-//       pattern: "pattern-forest",
-//     },
-//     galaxy: {
-//       name: "galaxy",
-//       bg: "bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900",
-//       text: "text-white",
-//       pattern: "pattern-galaxy",
-//     },
-//   };
-
-//   const theme = THEME_MODES[currentTheme];
-//   const isDarkTheme = currentTheme !== "light";
-
-//   const toggleTheme = () => {
-//     const themes = Object.keys(THEME_MODES);
-//     const currentIndex = themes.indexOf(currentTheme);
-//     const nextIndex = (currentIndex + 1) % themes.length;
-//     setCurrentTheme(themes[nextIndex]);
-//   };
-
-//   return {
-//     currentTheme,
-//     theme,
-//     isDarkTheme,
-//     darkMode: isDarkTheme,
-//     toggleTheme,
-//     availableThemes: THEME_MODES,
-//   };
-// };
+// import { useTheme } from "./providers/ThemeContext";
 
 // export default function Contact() {
 //   const { currentTheme, theme, isDarkTheme } = useTheme();
@@ -316,9 +260,9 @@
 //                         onChange={handleInputChange}
 //                         required
 //                         placeholder="Your full name"
-//                         className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-//                           styles.border
-//                         } ${
+//                         className={`w-full p-4 rounded-lg text-black ${
+//                           styles.inputBg
+//                         } ${styles.border} ${
 //                           styles.focusBorder
 //                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
 //                           currentTheme === "ocean"
@@ -343,9 +287,9 @@
 //                         onChange={handleInputChange}
 //                         required
 //                         placeholder="your.email@example.com"
-//                         className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-//                           styles.border
-//                         } ${
+//                         className={`w-full p-4 rounded-lg text-black ${
+//                           styles.inputBg
+//                         } ${styles.border} ${
 //                           styles.focusBorder
 //                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
 //                           currentTheme === "ocean"
@@ -371,9 +315,9 @@
 //                       onChange={handleInputChange}
 //                       required
 //                       placeholder="What's this about?"
-//                       className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-//                         styles.border
-//                       } ${
+//                       className={`w-full p-4 rounded-lg text-black ${
+//                         styles.inputBg
+//                       } ${styles.border} ${
 //                         styles.focusBorder
 //                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
 //                         currentTheme === "ocean"
@@ -398,9 +342,9 @@
 //                       required
 //                       rows="6"
 //                       placeholder="Tell me about your project, ideas, or just say hello!"
-//                       className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-//                         styles.border
-//                       } ${
+//                       className={`w-full p-4 rounded-lg text-black ${
+//                         styles.inputBg
+//                       } ${styles.border} ${
 //                         styles.focusBorder
 //                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 resize-none ${
 //                         currentTheme === "ocean"
@@ -498,6 +442,7 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
 
   const handleInputChange = (e) => {
     setFormData({
@@ -509,13 +454,30 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+      const response = await fetch("https://formspree.io/f/mjkepgra", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    alert("Message sent! (This is a demo)");
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    setIsSubmitting(false);
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Theme-specific styling
@@ -726,7 +688,20 @@ export default function Contact() {
                   Send Message
                 </h3>
 
-                <div className="space-y-6">
+                {/* Status Messages */}
+                {submitStatus === "success" && (
+                  <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </div>
+                )}
+                {submitStatus === "error" && (
+                  <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    ❌ Sorry, there was an error sending your message. Please
+                    try again.
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="block text-sm font-medium">
@@ -739,9 +714,9 @@ export default function Contact() {
                         onChange={handleInputChange}
                         required
                         placeholder="Your full name"
-                        className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-                          styles.border
-                        } ${
+                        className={`w-full p-4 rounded-lg text-black ${
+                          styles.inputBg
+                        } ${styles.border} ${
                           styles.focusBorder
                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                           currentTheme === "ocean"
@@ -766,9 +741,9 @@ export default function Contact() {
                         onChange={handleInputChange}
                         required
                         placeholder="your.email@example.com"
-                        className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-                          styles.border
-                        } ${
+                        className={`w-full p-4 rounded-lg text-black ${
+                          styles.inputBg
+                        } ${styles.border} ${
                           styles.focusBorder
                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                           currentTheme === "ocean"
@@ -794,9 +769,9 @@ export default function Contact() {
                       onChange={handleInputChange}
                       required
                       placeholder="What's this about?"
-                      className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-                        styles.border
-                      } ${
+                      className={`w-full p-4 rounded-lg text-black ${
+                        styles.inputBg
+                      } ${styles.border} ${
                         styles.focusBorder
                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                         currentTheme === "ocean"
@@ -821,9 +796,9 @@ export default function Contact() {
                       required
                       rows="6"
                       placeholder="Tell me about your project, ideas, or just say hello!"
-                      className={`w-full p-4 rounded-lg ${styles.inputBg} ${
-                        styles.border
-                      } ${
+                      className={`w-full p-4 rounded-lg text-black ${
+                        styles.inputBg
+                      } ${styles.border} ${
                         styles.focusBorder
                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 resize-none ${
                         currentTheme === "ocean"
@@ -854,7 +829,7 @@ export default function Contact() {
                       </>
                     )}
                   </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -876,20 +851,36 @@ export default function Contact() {
                 directly.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button
+                <a
+                  href="https://linkedin.com/in/olufunbi-ibrahim-2bb29922a"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`px-6 py-3 rounded-lg ${styles.inputBg} ${styles.border} transition-all duration-200 hover:scale-105 font-medium`}
                 >
-                  LinkedIn
-                </button>
-                <button
+                  Linkedin
+                </a>
+                <a
+                  href="https://github.com/OlufunbiIK"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`px-6 py-3 rounded-lg ${styles.inputBg} ${styles.border} transition-all duration-200 hover:scale-105 font-medium`}
                 >
                   GitHub
-                </button>
+                </a>
                 <button
-                  className={`px-6 py-3 rounded-lg ${styles.inputBg} ${styles.border} transition-all duration-200 hover:scale-105 font-medium`}
+                  onClick={() => {
+                    const phoneNumber = "23450366355"; // Replace with your WhatsApp number (country code + number, no spaces or +)
+                    const message = encodeURIComponent(
+                      "Hi! I'd like to schedule a call to discuss a project."
+                    );
+                    window.open(
+                      `https://wa.me/${phoneNumber}?text=${message}`,
+                      "_blank"
+                    );
+                  }}
+                  className={`px-6 py-3 rounded-lg ${styles.inputBg} ${styles.border} transition-all duration-200 hover:scale-105 font-medium cursor-pointer`}
                 >
-                  Schedule Call
+                  WhatsApp Call
                 </button>
               </div>
             </div>
