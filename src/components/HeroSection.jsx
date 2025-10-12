@@ -311,7 +311,9 @@ export const HeroSection = () => {
                   <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </button>
 
-                <button
+                <a
+                  href="/Olufunbi_Ibrahim_Portfolio.pdf"
+                  download="Olufunbi_Ibrahim_Resume.pdf"
                   className={`group px-8 py-4 rounded-full font-semibold border-2 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 backdrop-blur-sm ${
                     isDarkTheme
                       ? "border-white/20 hover:border-white/40 hover:bg-white/5"
@@ -320,7 +322,7 @@ export const HeroSection = () => {
                 >
                   <Download className="w-5 h-5 group-hover:animate-bounce" />
                   <span className={theme.text}>Download Resume</span>
-                </button>
+                </a>
               </div>
 
               {/* Social Links */}
