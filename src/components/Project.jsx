@@ -5,17 +5,16 @@ import {
   ChevronRight,
   Play,
   Pause,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-// Mock images - replace with your actual images
+import { ThemeProvider, useTheme } from "./providers/ThemeContext";
 import money from "../assets/images/money-tracker.png";
 import know from "../assets/images/knowiz.png";
 import food from "../assets/images/food.png";
 import innovation from "../assets/images/innovate.png";
 import mealmetrics from "../assets/images/mealmetrics.png";
-import { useTheme } from "./providers/ThemeContext";
-
-// Import your actual theme context
 
 const projects = [
   {
@@ -69,13 +68,13 @@ const projects = [
     tech: ["Next.js", "Tailwind"],
     github: "https://github.com/OlufunbiIK/meal-metrics",
     live: "https://meal-metrics-3lha.vercel.app/",
-    color: "from-orange-500 to-red-600",
-    accent: "bg-orange-500",
+    color: "from-yellow-500 to-amber-600",
+    accent: "bg-yellow-500",
   },
 ];
 
 export default function Project() {
-  const { currentTheme, isDarkTheme, theme } = useTheme();
+  const { currentTheme, isDarkTheme, toggleTheme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -83,7 +82,6 @@ export default function Project() {
   const autoPlayRef = useRef();
   const sectionRef = useRef();
 
-  // Theme-based styling functions
   const getThemeStyles = () => {
     const baseStyles = {
       light: {
@@ -116,51 +114,6 @@ export default function Project() {
         progressInactive: "bg-gray-600 hover:bg-gray-500",
         statsBg: "bg-gray-900/50 border-gray-800/50",
       },
-      ocean: {
-        bg: "bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900",
-        cardBg: "bg-blue-900/80 border-blue-800/50 shadow-2xl",
-        cardBgAlt: "bg-blue-800/80 border-blue-700/50",
-        text: "text-white",
-        textSecondary: "text-blue-100",
-        textMuted: "text-blue-200",
-        controlBg:
-          "bg-blue-900/80 hover:bg-blue-800/80 text-white border-blue-800/50",
-        controlBgAlt:
-          "bg-blue-800/60 hover:bg-blue-700/60 text-blue-100 border-blue-700/50",
-        techBadge: "bg-blue-800/60 text-blue-100 border-blue-700/50",
-        progressInactive: "bg-blue-600 hover:bg-blue-500",
-        statsBg: "bg-blue-900/50 border-blue-800/50",
-      },
-      forest: {
-        bg: "bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900",
-        cardBg: "bg-green-900/80 border-green-800/50 shadow-2xl",
-        cardBgAlt: "bg-green-800/80 border-green-700/50",
-        text: "text-white",
-        textSecondary: "text-green-100",
-        textMuted: "text-green-200",
-        controlBg:
-          "bg-green-900/80 hover:bg-green-800/80 text-white border-green-800/50",
-        controlBgAlt:
-          "bg-green-800/60 hover:bg-green-700/60 text-green-100 border-green-700/50",
-        techBadge: "bg-green-800/60 text-green-100 border-green-700/50",
-        progressInactive: "bg-green-600 hover:bg-green-500",
-        statsBg: "bg-green-900/50 border-green-800/50",
-      },
-      galaxy: {
-        bg: "bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900",
-        cardBg: "bg-purple-900/80 border-purple-800/50 shadow-2xl",
-        cardBgAlt: "bg-purple-800/80 border-purple-700/50",
-        text: "text-white",
-        textSecondary: "text-purple-100",
-        textMuted: "text-purple-200",
-        controlBg:
-          "bg-purple-900/80 hover:bg-purple-800/80 text-white border-purple-800/50",
-        controlBgAlt:
-          "bg-purple-800/60 hover:bg-purple-700/60 text-purple-100 border-purple-700/50",
-        techBadge: "bg-purple-800/60 text-purple-100 border-purple-700/50",
-        progressInactive: "bg-purple-600 hover:bg-purple-500",
-        statsBg: "bg-purple-900/50 border-purple-800/50",
-      },
     };
 
     return baseStyles[currentTheme] || baseStyles.dark;
@@ -168,7 +121,6 @@ export default function Project() {
 
   const styles = getThemeStyles();
 
-  // Auto-play functionality
   useEffect(() => {
     if (isAutoPlay) {
       autoPlayRef.current = setInterval(() => {
@@ -179,7 +131,6 @@ export default function Project() {
     return () => clearInterval(autoPlayRef.current);
   }, [isAutoPlay, currentIndex]);
 
-  // Mouse tracking for parallax effect (disabled on mobile)
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (sectionRef.current && window.innerWidth > 768) {
@@ -194,7 +145,6 @@ export default function Project() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Handle keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === "ArrowLeft") {
@@ -234,7 +184,6 @@ export default function Project() {
 
   const getSlidePosition = (index) => {
     const diff = index - currentIndex;
-    // Better positioning for mobile with larger multiplier for more visible separation
     const multiplier =
       window.innerWidth < 640 ? 110 : window.innerWidth < 768 ? 120 : 120;
     if (Math.abs(diff) > 2) {
@@ -291,19 +240,39 @@ export default function Project() {
 
   const currentProject = projects[currentIndex];
 
+  const getBackgroundColor = (colorClass) => {
+    const colorMap = {
+      blue: "#3b82f6",
+      green: "#22c55e",
+      purple: "#a855f7",
+      pink: "#ec4899",
+      orange: "#f97316",
+      teal: "#14b8a6",
+      rose: "#f43f5e",
+      red: "#ef4444",
+      yellow: "#eab308",
+      amber: "#f59e0b",
+    };
+
+    if (!colorClass) return "#3b82f6";
+    const firstColor = colorClass.split(" ")[0];
+    const colorName = firstColor.replace("from-", "").split("-")[0];
+    return colorMap[colorName] || "#3b82f6";
+  };
+
   return (
-    <div ref={sectionRef} className="relative">
-      {/* Dynamic background with current project color */}
+    <div
+      ref={sectionRef}
+      className={`relative ${styles.bg} transition-colors duration-500`}
+    >
       <div
         className="absolute inset-0 opacity-5 transition-all duration-1000"
         style={{
           background: `radial-gradient(circle at ${
             50 + mousePosition.x * 10
-          }% ${50 + mousePosition.y * 10}%, ${currentProject?.color
-            ?.replace("from-", "")
-            .replace("to-", "")
-            .split(" ")[0]
-            ?.replace("-500", "")} 0%, transparent 70%)`,
+          }% ${50 + mousePosition.y * 10}%, ${getBackgroundColor(
+            currentProject?.color
+          )} 0%, transparent 70%)`,
         }}
       />
 
@@ -312,9 +281,25 @@ export default function Project() {
         className="py-10 sm:py-20 overflow-hidden min-h-screen relative"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-screen">
+          {/* Theme Toggle Button */}
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={toggleTheme}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${styles.controlBg} backdrop-blur-sm border`}
+              aria-label="Toggle theme"
+            >
+              {isDarkTheme ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+              <span className="text-sm">{isDarkTheme ? "Light" : "Dark"}</span>
+            </button>
+          </div>
+
           <div className="text-center mb-8 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
-              <span className={styles.text}>Featured</span>
+              <span className={styles.text}>Featured </span>
               <span className="text-blue-500">Projects</span>
             </h2>
 
@@ -324,7 +309,6 @@ export default function Project() {
               Crafting digital experiences that matter
             </p>
 
-            {/* Enhanced controls - responsive */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-4">
               <button
                 onClick={() => setIsAutoPlay(!isAutoPlay)}
@@ -350,7 +334,6 @@ export default function Project() {
               </div>
             </div>
 
-            {/* Project counter */}
             <div
               className={`inline-block px-3 sm:px-4 py-2 rounded-full ${currentProject.accent} text-white text-sm font-medium`}
             >
@@ -360,7 +343,6 @@ export default function Project() {
           </div>
 
           <div className="flex flex-col gap-64 lg:gap-72">
-            {/* Enhanced Cinematic Slider - More responsive */}
             <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center mb-8 sm:mb-12">
               <div className="relative w-full max-w-sm sm:max-w-2xl lg:max-w-5xl">
                 {projects.map((project, index) => (
@@ -397,7 +379,6 @@ export default function Project() {
                             : "none",
                       }}
                     >
-                      {/* Animated border for active project */}
                       {index === currentIndex && (
                         <div
                           className={`absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r ${project.color} opacity-20 animate-pulse`}
@@ -424,7 +405,6 @@ export default function Project() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                        {/* Floating elements */}
                         <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
                           <div
                             className={`w-2 h-2 sm:w-3 sm:h-3 ${project.accent} rounded-full animate-pulse`}
@@ -437,7 +417,6 @@ export default function Project() {
                           </div>
                         </div>
 
-                        {/* Live indicator for active project */}
                         {index === currentIndex && (
                           <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 flex items-center gap-2 px-2 sm:px-3 py-1 bg-green-500/80 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm">
                             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full animate-pulse" />
@@ -458,7 +437,6 @@ export default function Project() {
                           {project.description}
                         </p>
 
-                        {/* Enhanced tech stack */}
                         <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                           {project.tech.map((tech, techIndex) => (
                             <span
@@ -470,7 +448,6 @@ export default function Project() {
                           ))}
                         </div>
 
-                        {/* Enhanced action buttons */}
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 relative z-10">
                           <a
                             href={project.github}
@@ -498,7 +475,6 @@ export default function Project() {
                 ))}
               </div>
 
-              {/* Enhanced Navigation Buttons - More responsive */}
               <button
                 onClick={prevProject}
                 disabled={isTransitioning}
@@ -516,7 +492,6 @@ export default function Project() {
               </button>
             </div>
 
-            {/* Enhanced Progress Indicators - Moved below details */}
             <div className="flex justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
               {projects.map((project, index) => (
                 <button
@@ -537,7 +512,6 @@ export default function Project() {
                     }`}
                   />
 
-                  {/* Progress bar for current slide */}
                   {index === currentIndex && isAutoPlay && (
                     <div
                       className="absolute inset-0 bg-white/30 rounded-full animate-pulse"
@@ -550,7 +524,6 @@ export default function Project() {
               ))}
             </div>
 
-            {/* Project Stats - More responsive */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
               {[
                 { label: "Total Projects", value: projects.length },
@@ -585,7 +558,7 @@ export default function Project() {
         </div>
       </section>
 
-      <style jsx>{`
+      <style>{`
         @keyframes progress {
           0% {
             width: 100%;

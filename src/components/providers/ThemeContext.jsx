@@ -17,25 +17,25 @@ const THEME_MODES = {
     text: "text-white",
     pattern: "pattern-dark",
   },
-  ocean: {
-    name: "ocean",
-    bg: "bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900",
-    text: "text-white",
-    pattern: "pattern-ocean",
-  },
-  forest: {
-    name: "forest",
-    bg: "bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900",
-    text: "text-white",
-    pattern: "pattern-forest",
-  },
+  // ocean: {
+  //   name: "ocean",
+  //   bg: "bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-900",
+  //   text: "text-white",
+  //   pattern: "pattern-ocean",
+  // },
+  // forest: {
+  //   name: "forest",
+  //   bg: "bg-gradient-to-br from-green-900 via-emerald-800 to-teal-900",
+  //   text: "text-white",
+  //   pattern: "pattern-forest",
+  // },
 
-  galaxy: {
-    name: "galaxy",
-    bg: "bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900",
-    text: "text-white",
-    pattern: "pattern-galaxy",
-  },
+  // galaxy: {
+  //   name: "galaxy",
+  //   bg: "bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900",
+  //   text: "text-white",
+  //   pattern: "pattern-galaxy",
+  // },
 };
 
 export const ThemeProvider = ({ children }) => {

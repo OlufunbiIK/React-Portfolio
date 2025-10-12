@@ -35,20 +35,20 @@ export default function NavBar() {
     ),
     dark: (
       // Show Sun (☀️) so user can switch to Light
-      <Droplets className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+      <Sun className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
     ),
-    ocean: (
-      // Show Droplets (🌊) to select Ocean theme
-      <Trees className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
-    ),
-    forest: (
-      // Show Trees (🌲) to select Forest theme
-      <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
-    ),
-    galaxy: (
-      // Show Sparkles (✨) to select Galaxy theme
-      <Sun className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-spin" />
-    ),
+    // ocean: (
+    //   // Show Droplets (🌊) to select Ocean theme
+    //   <Trees className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+    // ),
+    // forest: (
+    //   // Show Trees (🌲) to select Forest theme
+    //   <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-pulse" />
+    // ),
+    // galaxy: (
+    //   // Show Sparkles (✨) to select Galaxy theme
+    //   <Sun className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-spin" />
+    // ),
   };
 
   const navItems = [
@@ -264,9 +264,9 @@ export default function NavBar() {
         <div className="flex justify-between items-center h-14 sm:h-16 lg:h-18">
           {/* Logo Section - Responsive sizing */}
           <div className="text-base sm:text-lg  lg:text-xl font-bold transition-colors duration-300 flex items-center space-x-1 sm:space-x-2 flex-shrink-0 min-w-0">
-            <span className="text-lg sm:text-xl lg:text-2xl animate-bounce flex-shrink-0">
+            {/* <span className="text-lg sm:text-xl lg:text-2xl animate-bounce flex-shrink-0">
               {getThemeIcon(currentTheme)}
-            </span>
+            </span> */}
             <div
               className={`${
                 currentTheme === "light" ? "text-gray-900" : "text-white"

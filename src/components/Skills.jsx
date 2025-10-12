@@ -13,13 +13,61 @@ import {
   GitBranch,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "./providers/ThemeContext";
 
 export default function Skills() {
+  const { currentTheme, isDarkTheme } = useTheme();
   const [visibleSkills, setVisibleSkills] = useState(new Set());
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
   const sectionRef = useRef();
   const skillRefs = useRef({});
+
+  // Theme styles
+  const getThemeStyles = () => {
+    const baseStyles = {
+      light: {
+        bg: "bg-gray-50",
+        text: "text-gray-900",
+        textSecondary: "text-gray-600",
+        textMuted: "text-gray-500",
+        cardBg: "bg-white/90 border-gray-200/50 shadow-xl",
+        cardHoverBg: "hover:bg-gray-50/90",
+        badgeBg: "bg-blue-500/10 border-gray-200/50",
+        buttonBg:
+          "bg-gray-100/90 hover:bg-gray-200/90 text-gray-700 border-gray-300/50",
+        buttonActiveBg:
+          "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg",
+        progressBg: "bg-gray-200/60",
+        borderColor: "border-gray-200/50",
+        hoverBorderColor: "hover:border-gray-300/80",
+        particleBg: "bg-gradient-to-r from-blue-500 to-purple-600",
+        statCardBg: "bg-white/60 backdrop-blur-sm border-gray-200/30",
+      },
+      dark: {
+        bg: "bg-gray-900",
+        text: "text-white",
+        textSecondary: "text-gray-300",
+        textMuted: "text-gray-400",
+        cardBg: "bg-gray-900/80 border-gray-800/50 shadow-2xl",
+        cardHoverBg: "hover:bg-gray-800/90",
+        badgeBg: "bg-blue-500/10 border-white/10",
+        buttonBg:
+          "bg-gray-800/70 hover:bg-gray-700/70 text-gray-300 border-gray-700/50",
+        buttonActiveBg:
+          "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg",
+        progressBg: "bg-gray-800/60",
+        borderColor: "border-gray-800/50",
+        hoverBorderColor: "hover:border-gray-700/80",
+        particleBg: "bg-gradient-to-r from-blue-500 to-purple-600",
+        statCardBg: "bg-gray-900/60 backdrop-blur-sm border-gray-800/30",
+      },
+    };
+
+    return baseStyles[currentTheme] || baseStyles.dark;
+  };
+
+  const styles = getThemeStyles();
 
   const skillCategories = {
     frontend: {
@@ -175,13 +223,19 @@ export default function Skills() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden">
+    <div
+      className={`min-h-screen ${styles.bg} ${styles.text} relative overflow-hidden transition-colors duration-500`}
+    >
       {/* Animated background particles */}
-      <div className="absolute inset-0 opacity-30">
+      <div
+        className={`absolute inset-0 ${
+          isDarkTheme ? "opacity-30" : "opacity-20"
+        }`}
+      >
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-bounce"
+            className={`absolute w-2 h-2 ${styles.particleBg} rounded-full animate-bounce`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -197,21 +251,25 @@ export default function Skills() {
           {/* Header */}
           <div className="text-center mb-20">
             <div className="inline-block mb-6">
-              <div className="flex items-center gap-3 px-6 py-3 bg-blue-500/10 rounded-full border border-white/10">
+              <div
+                className={`flex items-center gap-3 px-6 py-3 ${styles.badgeBg} rounded-full border`}
+              >
                 <Zap className="w-5 h-5 text-blue-500" />
-                <span className="text-sm font-medium text-gray-300">
+                <span className={`text-sm font-medium ${styles.textSecondary}`}>
                   Technical Expertise
                 </span>
               </div>
             </div>
 
             <h2 className="text-5xl lg:text-7xl font-bold mb-6 tracking-tight">
-              My
+              <span className={styles.text}>My </span>
               <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Skills
               </span>
             </h2>
-            <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-300">
+            <p
+              className={`text-xl mb-8 max-w-2xl mx-auto ${styles.textSecondary}`}
+            >
               A comprehensive toolkit built through years of passionate
               development
             </p>
@@ -237,14 +295,16 @@ export default function Skills() {
               ].map((stat, index) => (
                 <div
                   key={index}
-                  className="p-6 rounded-2xl transition-all duration-500 hover:scale-105 bg-gray-900/60 backdrop-blur-sm border border-gray-800/30"
+                  className={`p-6 rounded-2xl transition-all duration-500 hover:scale-105 ${styles.statCardBg} border`}
                 >
                   <div
                     className={`text-3xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
                   >
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className={`text-sm ${styles.textMuted}`}>
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -256,8 +316,8 @@ export default function Skills() {
               onClick={() => setActiveCategory("all")}
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
                 activeCategory === "all"
-                  ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg"
-                  : "bg-gray-800/70 text-gray-300 hover:bg-gray-700/70 border border-gray-700/50"
+                  ? styles.buttonActiveBg
+                  : `${styles.buttonBg} border`
               } backdrop-blur-sm`}
             >
               All Skills
@@ -269,7 +329,7 @@ export default function Skills() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
                   activeCategory === key
                     ? `bg-gradient-to-r ${category.color} text-white shadow-lg`
-                    : "bg-gray-800/70 text-gray-300 hover:bg-gray-700/70 border border-gray-700/50"
+                    : `${styles.buttonBg} border`
                 } backdrop-blur-sm`}
               >
                 {category.icon}
@@ -289,7 +349,11 @@ export default function Skills() {
                   key={`${skill.name}-${activeCategory}`}
                   ref={(el) => (skillRefs.current[index] = el)}
                   data-index={index}
-                  className={`group relative overflow-hidden rounded-3xl transition-all duration-700 hover:scale-105 cursor-pointer bg-gray-900/80 backdrop-blur-xl shadow-2xl hover:shadow-3xl border border-gray-800/50 hover:border-gray-700/80 ${
+                  className={`group relative overflow-hidden rounded-3xl transition-all duration-700 hover:scale-105 cursor-pointer ${
+                    styles.cardBg
+                  } backdrop-blur-xl hover:shadow-3xl border ${
+                    styles.borderColor
+                  } ${styles.hoverBorderColor} ${
                     isVisible
                       ? "translate-y-0 opacity-100"
                       : "translate-y-12 opacity-0"
@@ -316,25 +380,35 @@ export default function Skills() {
                         {skill.icon}
                       </div>
 
-                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-gray-800/70 border border-white/10">
+                      <div
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
+                          isDarkTheme
+                            ? "bg-gray-800/70 border-white/10"
+                            : "bg-gray-100/70 border-gray-300/50"
+                        } border`}
+                      >
                         {skillLevelInfo.icon}
                         {skillLevelInfo.text}
                       </div>
                     </div>
 
                     {/* Skill name and description */}
-                    <h3 className="text-2xl font-bold mb-2 group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 text-white">
+                    <h3
+                      className={`text-2xl font-bold mb-2 group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 ${styles.text}`}
+                    >
                       {skill.name}
                     </h3>
 
-                    <p className="text-sm mb-6 text-gray-400">
+                    <p className={`text-sm mb-6 ${styles.textMuted}`}>
                       {skill.description}
                     </p>
 
                     {/* Animated progress bar */}
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-3">
-                        <span className="text-sm font-medium text-gray-300">
+                        <span
+                          className={`text-sm font-medium ${styles.textSecondary}`}
+                        >
                           Proficiency
                         </span>
                         <span
@@ -344,7 +418,9 @@ export default function Skills() {
                         </span>
                       </div>
 
-                      <div className="w-full h-3 rounded-full overflow-hidden bg-gray-800/60">
+                      <div
+                        className={`w-full h-3 rounded-full overflow-hidden ${styles.progressBg}`}
+                      >
                         <div
                           className={`h-full rounded-full bg-gradient-to-r ${skill.color} transition-all duration-1500 ease-out shadow-lg relative overflow-hidden`}
                           style={{
@@ -359,20 +435,28 @@ export default function Skills() {
                     </div>
 
                     {/* Additional info */}
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                    <div
+                      className={`grid grid-cols-2 gap-4 pt-4 border-t ${
+                        isDarkTheme ? "border-white/10" : "border-gray-200/50"
+                      }`}
+                    >
                       <div>
-                        <div className="text-xs text-gray-400 mb-1">
+                        <div className={`text-xs ${styles.textMuted} mb-1`}>
                           Experience
                         </div>
-                        <div className="text-sm font-semibold text-gray-300">
+                        <div
+                          className={`text-sm font-semibold ${styles.textSecondary}`}
+                        >
                           {skill.experience}
                         </div>
                       </div>
                       <div>
-                        <div className="text-xs text-gray-400 mb-1">
+                        <div className={`text-xs ${styles.textMuted} mb-1`}>
                           Projects
                         </div>
-                        <div className="text-sm font-semibold text-gray-300">
+                        <div
+                          className={`text-sm font-semibold ${styles.textSecondary}`}
+                        >
                           {skill.projects}+
                         </div>
                       </div>
@@ -393,12 +477,16 @@ export default function Skills() {
 
           {/* Skills summary */}
           <div className="mt-20 text-center">
-            <div className="inline-block p-8 rounded-3xl bg-gray-900/60 backdrop-blur-xl border border-gray-800/30">
-              <div className="text-lg mb-4 text-gray-300">
+            <div
+              className={`inline-block p-8 rounded-3xl ${styles.statCardBg} border`}
+            >
+              <div className={`text-lg mb-4 ${styles.textSecondary}`}>
                 "Constantly learning, always growing, forever passionate about
                 creating exceptional digital experiences."
               </div>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-400">
+              <div
+                className={`flex items-center justify-center gap-2 text-sm ${styles.textMuted}`}
+              >
                 <Star className="w-4 h-4 text-yellow-500" />
                 Ready for new challenges
               </div>

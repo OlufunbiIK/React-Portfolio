@@ -316,7 +316,7 @@ export default function About() {
           }`}
         >
           <div
-            className={`inline-flex items-center gap-4 px-8 py-4 ${themeStyles.cardBg} rounded-2xl backdrop-blur-sm`}
+            className={`inline-flex flex-col md:flex-row items-center gap-4 px-8 py-4 ${themeStyles.cardBg} rounded-2xl backdrop-blur-sm`}
           >
             <span className={`text-lg ${themeStyles.textSecondary}`}>
               Ready to bring your ideas to life?

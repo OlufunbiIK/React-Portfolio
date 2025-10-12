@@ -50,38 +50,6 @@ const FunbiDevLogo = ({ currentTheme = "dark", className = "" }) => {
       role="img"
       aria-label="Funbi.dev Logo"
     >
-      {/* Icon */}
-      <div className="relative flex items-center justify-center">
-        <svg
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          className={`transition-transform duration-500 ${
-            isHovered ? "scale-110 rotate-1" : "scale-100"
-          }`}
-        >
-          {/* Accent line */}
-          <rect
-            x="20"
-            y="12"
-            width="4"
-            height="1.5"
-            fill={colors.accent}
-            className={`transition-transform duration-500 ${
-              isHovered ? "translate-x-1 opacity-100" : "opacity-70"
-            }`}
-          />
-        </svg>
-
-        {/* Glow effect */}
-        <div
-          className={`absolute inset-0 rounded-full blur-lg transition-opacity duration-500 ${
-            isHovered ? "opacity-50" : "opacity-0"
-          }`}
-          style={{ background: colors.accent }}
-        />
-      </div>
-
       {/* Text */}
       <div className="flex items-baseline relative">
         <span
@@ -90,7 +58,7 @@ const FunbiDevLogo = ({ currentTheme = "dark", className = "" }) => {
           }`}
           style={{ color: colors.text }}
         >
-          funbi
+          Olufunbi's
         </span>
         <span
           className="text-2xl font-light ml-1 bg-clip-text text-transparent transition-all duration-500"
@@ -100,7 +68,7 @@ const FunbiDevLogo = ({ currentTheme = "dark", className = "" }) => {
             })`,
           }}
         >
-          .dev
+          Portfolio
         </span>
 
         {/* Underline animation */}
