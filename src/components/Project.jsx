@@ -281,22 +281,6 @@ export default function Project() {
         className="py-10 sm:py-20 overflow-hidden min-h-screen relative"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-screen">
-          {/* Theme Toggle Button */}
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={toggleTheme}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${styles.controlBg} backdrop-blur-sm border`}
-              aria-label="Toggle theme"
-            >
-              {isDarkTheme ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-              <span className="text-sm">{isDarkTheme ? "Light" : "Dark"}</span>
-            </button>
-          </div>
-
           <div className="text-center mb-8 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
               <span className={styles.text}>Featured </span>
