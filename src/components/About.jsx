@@ -282,7 +282,7 @@ export default function About() {
                 <img
                   src={image}
                   alt="Profile"
-                  className="relative w-full h-[500px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="relative w-full h-[500px] object-cover object-top translate-y-4 rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
 
                 {/* Overlay Pattern */}
