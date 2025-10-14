@@ -1,77 +1,3 @@
-// import { useEffect } from "react";
-// import "./App.css";
-// import "./index.css";
-// import { HeroSection } from "./components/HeroSection";
-// import NavBar from "./components/NavBar";
-// import Footer from "./components/Footer";
-// import Contact from "./components/Contact";
-// import Project from "./components/Project";
-// import Skills from "./components/Skills";
-// import About from "./components/About";
-// import { ThemeProvider, useTheme } from "./components/providers/ThemeContext";
-
-// // Create a separate component to use the theme context
-// function AppContent() {
-//   const { darkMode, activeSection, setActiveSection } = useTheme();
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       const sections = ["home", "about", "skills", "projects", "contact"];
-//       const current = sections.find((section) => {
-//         const element = document.getElementById(section);
-//         if (element) {
-//           const rect = element.getBoundingClientRect();
-//           return rect.top <= 100 && rect.bottom >= 100;
-//         }
-//         return false;
-//       });
-//       if (current) setActiveSection(current);
-//     };
-
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, [setActiveSection]);
-
-//   return (
-//     <div
-//       className={`App min-h-screen transition-all duration-500 ${
-//         darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
-//       }`}
-//     >
-//       {/* Navigation */}
-//       <NavBar />
-
-//       {/* Hero Section */}
-//       <HeroSection />
-
-//       {/* About Section */}
-//       <About />
-
-//       {/* Skills Section */}
-//       <Skills />
-
-//       {/* Projects Section */}
-//       <Project />
-
-//       {/* Contact Section */}
-//       <Contact />
-
-//       {/* Footer */}
-//       <Footer />
-//     </div>
-//   );
-// }
-
-// function App() {
-//   return (
-//     <ThemeProvider>
-//       <AppContent />
-//     </ThemeProvider>
-//   );
-// }
-
-// export default App;
-
 import { useEffect } from "react";
 import "./App.css";
 import "./index.css";
@@ -83,8 +9,12 @@ import Project from "./components/Project";
 import Skills from "./components/Skills";
 import About from "./components/About";
 import { ThemeProvider, useTheme } from "./components/providers/ThemeContext";
+import Blog from "./components/Blog";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// ❌ You used <Route path="/blog" element={<Blog />} /> but didn’t import React Router or Blog
+// So either remove it or properly configure React Router if you have routes
 
-// Background Pattern Component
+// ✅ Background Pattern Component
 function BackgroundPattern({ theme }) {
   const getPatternStyles = () => {
     switch (theme.name) {
@@ -98,7 +28,6 @@ function BackgroundPattern({ theme }) {
           `,
           backgroundSize: "100px 100px, 100px 100px, 50px 50px, 50px 50px",
         };
-
       case "dark":
         return {
           backgroundImage: `
@@ -109,7 +38,6 @@ function BackgroundPattern({ theme }) {
           `,
           backgroundSize: "100px 100px, 100px 100px, 50px 50px, 50px 50px",
         };
-
       case "ocean":
         return {
           backgroundImage: `
@@ -120,18 +48,15 @@ function BackgroundPattern({ theme }) {
           `,
           backgroundSize: "400px 400px, 600px 600px, 200px 200px, 100px 100px",
         };
-
       case "forest":
         return {
           backgroundImage: `
             radial-gradient(circle at 25% 25%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
             radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-            polygon-gradient(rgba(5, 150, 105, 0.1)),
             linear-gradient(60deg, transparent 30%, rgba(6, 78, 59, 0.1) 30%, rgba(6, 78, 59, 0.1) 70%, transparent 70%)
           `,
           backgroundSize: "300px 300px, 500px 500px, 150px 150px, 80px 80px",
         };
-
       case "sunset":
         return {
           backgroundImage: `
@@ -142,20 +67,16 @@ function BackgroundPattern({ theme }) {
           `,
           backgroundSize: "600px 600px, 400px 400px, 300px 300px, 120px 120px",
         };
-
       case "galaxy":
         return {
           backgroundImage: `
             radial-gradient(ellipse at 20% 20%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
             radial-gradient(ellipse at 80% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 50% 10%, rgba(79, 70, 229, 0.1) 0%, transparent 30%),
-            conic-gradient(from 180deg at 50% 50%, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.1)),
-            repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(168, 85, 247, 0.05) 30deg, transparent 60deg)
+            conic-gradient(from 180deg at 50% 50%, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.1))
           `,
-          backgroundSize:
-            "500px 500px, 700px 700px, 300px 300px, 400px 400px, 200px 200px",
+          backgroundSize: "500px 500px, 700px 700px, 300px 300px, 400px 400px",
         };
-
       default:
         return {};
     }
@@ -169,7 +90,7 @@ function BackgroundPattern({ theme }) {
   );
 }
 
-// Animated particles component
+// ✅ Animated Particles Component
 function AnimatedParticles({ theme }) {
   if (theme.name === "light" || theme.name === "dark") return null;
 
@@ -209,9 +130,9 @@ function AnimatedParticles({ theme }) {
   );
 }
 
-// Create a separate component to use the theme context
-function AppContent() {
-  const { theme, activeSection, setActiveSection } = useTheme();
+// Main Content Wrapper (for the homepage)
+function HomePage() {
+  const { theme, setActiveSection } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -235,43 +156,32 @@ function AppContent() {
     <div
       className={`App min-h-screen transition-all duration-500 relative ${theme.bg} ${theme.text}`}
     >
-      {/* Background Pattern */}
       <BackgroundPattern theme={theme} />
-
-      {/* Animated Particles */}
       <AnimatedParticles theme={theme} />
 
-      {/* Content with relative positioning to appear above background */}
       <div className="relative z-10">
-        {/* Navigation */}
         <NavBar />
-
-        {/* Hero Section */}
         <HeroSection />
-
-        {/* About Section */}
         <About />
-
-        {/* Skills Section */}
         <Skills />
-
-        {/* Projects Section */}
         <Project />
-
-        {/* Contact Section */}
         <Contact />
-
-        {/* Footer */}
         <Footer />
       </div>
     </div>
   );
 }
 
+// Root App Component
 function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<Blog />} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 }

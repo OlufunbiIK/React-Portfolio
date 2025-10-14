@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail, Heart, ExternalLink } from "lucide-react";
 import { useTheme } from "./providers/ThemeContext";
 import LegalModal from "./LegalModal";
 
-export default function Footer() {
+export default function Footer({ onBlogClick }) {
   const { darkMode } = useTheme();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("terms");
@@ -37,7 +37,7 @@ export default function Footer() {
       { name: "About", href: "#about" },
       { name: "Projects", href: "#projects" },
       { name: "Contact", href: "#contact" },
-      { name: "Blog", href: "#blog" },
+      { name: "Blog", href: "/blog" },
     ],
   };
 
@@ -144,26 +144,24 @@ export default function Footer() {
                 Let's Connect
               </h4>
               <div className="flex gap-3">
-                {footerData.social.map((social, index) => (
-                  <a
+                {footerData.quickLinks.map((link, index) => (
+                  <button
                     key={index}
-                    href={social.href}
-                    title={social.name}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`
-                      ${baseClasses.links.social}
-                      ${
-                        darkMode
-                          ? "bg-gray-800 hover:bg-gray-700 text-gray-400"
-                          : "bg-gray-100 hover:bg-gray-200 text-gray-600"
+                    onClick={() => {
+                      if (
+                        link.name === "Blog" &&
+                        typeof onBlogClick === "function"
+                      ) {
+                        onBlogClick();
+                      } else {
+                        window.location.href = link.href;
                       }
-                      ${social.color}
-                    `}
+                    }}
+                    className={`${baseClasses.links.quick} inline-flex items-center gap-1 w-fit group`}
                   >
-                    {social.icon}
-                    <span className="sr-only">{social.name}</span>
-                  </a>
+                    {link.name}
+                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
                 ))}
               </div>
               <p className={`text-xs ${baseClasses.text.secondary}`}>
