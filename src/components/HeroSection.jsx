@@ -312,7 +312,7 @@ export const HeroSection = () => {
                 </button>
 
                 <a
-                  href="/Olufunbi_Ibrahim_Portfolio.pdf"
+                  href="/OLUFUNBI_IBRAHIM_Frontend_Developer Portfolio.pdf"
                   download="Olufunbi_Ibrahim_Resume.pdf"
                   className={`group px-8 py-4 rounded-full font-semibold border-2 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2 backdrop-blur-sm ${
                     isDarkTheme
