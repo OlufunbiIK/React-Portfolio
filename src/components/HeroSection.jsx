@@ -396,19 +396,19 @@ export const HeroSection = () => {
                   {[
                     {
                       label: "Projects",
-                      value: "25+",
+                      value: "10+",
                       color: "text-cyan-400",
                       icon: Code,
                     },
                     {
                       label: "Experience",
-                      value: "3+",
+                      value: "2",
                       color: "text-purple-400",
                       icon: Zap,
                     },
                     {
                       label: "Happy Clients",
-                      value: "20+",
+                      value: "10+",
                       color: "text-green-400",
                       icon: Sparkles,
                     },

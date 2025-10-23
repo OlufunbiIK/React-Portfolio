@@ -1,6 +1,6 @@
 import { useTheme } from "./providers/ThemeContext";
 import { useState, useRef, useEffect } from "react";
-import image from "../assets/images/IMG_8841.JPG";
+import image from "../assets/images/funbi.jpeg";
 import { scrollToSection } from "./utils/ScrollToSection";
 
 export default function About() {
@@ -91,19 +91,19 @@ export default function About() {
   const stats = [
     {
       label: "Years Experience",
-      value: "3+",
+      value: "2",
       icon: "🚀",
       description: "Building amazing web experiences",
     },
     {
       label: "Projects Completed",
-      value: "50+",
+      value: "10+",
       icon: "💼",
       description: "From startups to enterprise solutions",
     },
     {
       label: "Technologies",
-      value: "20+",
+      value: "15+",
       icon: "⚡",
       description: "Modern tools and frameworks",
     },
@@ -286,7 +286,7 @@ export default function About() {
                 />
 
                 {/* Overlay Pattern */}
-                <div className="absolute inset-2 rounded-2xl bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                {/* <div className="absolute inset-2 rounded-2xl bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div> */}
               </div>
 
               {/* Floating Badge */}

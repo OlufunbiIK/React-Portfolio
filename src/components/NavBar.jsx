@@ -169,17 +169,17 @@ export default function NavBar() {
   const getMobileMenuStyles = () => {
     switch (currentTheme) {
       case "light":
-        return "bg-white/90 backdrop-blur-xl border-gray-200/60 shadow-xl shadow-gray-200/30";
+        return "bg-white border-gray-200/60 shadow-xl shadow-gray-200/30";
       case "dark":
-        return "bg-gray-900/90 backdrop-blur-xl border-gray-700/60 shadow-xl shadow-gray-900/30";
+        return "bg-gray-900 border-gray-700/60 shadow-xl shadow-gray-900/30";
       case "ocean":
-        return "bg-gradient-to-b from-blue-900/90 via-blue-800/90 to-cyan-900/90 backdrop-blur-xl border-cyan-400/40 shadow-xl shadow-blue-900/40";
+        return "bg-gradient-to-b from-blue-900 via-blue-800 to-cyan-900 border-cyan-400/40 shadow-xl shadow-blue-900/40";
       case "forest":
-        return "bg-gradient-to-b from-green-900/90 via-emerald-800/90 to-teal-900/90 backdrop-blur-xl border-emerald-400/40 shadow-xl shadow-green-900/40";
+        return "bg-gradient-to-b from-green-900 via-emerald-800 to-teal-900 border-emerald-400/40 shadow-xl shadow-green-900/40";
       case "galaxy":
-        return "bg-gradient-to-b from-purple-900/90 via-blue-900/90 to-indigo-900/90 backdrop-blur-xl border-purple-400/40 shadow-xl shadow-purple-900/40";
+        return "bg-gradient-to-b from-purple-900 via-blue-900 to-indigo-900 border-purple-400/40 shadow-xl shadow-purple-900/40";
       default:
-        return "bg-gray-900/90 backdrop-blur-xl border-gray-700/60 shadow-xl shadow-gray-900/30";
+        return "bg-gray-900 border-gray-700/60 shadow-xl shadow-gray-900/30";
     }
   };
 
@@ -258,10 +258,10 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 border-b transition-all duration-300 ${getNavbarStyles()}`}
+      className={`fixed top-0 w-full z-50 border-b transition-all duration-300 overflow-x-hidden ${getNavbarStyles()}`}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-18">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 w-full">
+        <div className="flex justify-between items-center h-14 sm:h-16 lg:h-18 w-full overflow-hidden">
           {/* Logo Section - Responsive sizing */}
           <div className="text-base sm:text-lg  lg:text-xl font-bold transition-colors duration-300 flex items-center space-x-1 sm:space-x-2 flex-shrink-0 min-w-0">
             {/* <span className="text-lg sm:text-xl lg:text-2xl animate-bounce flex-shrink-0">
@@ -451,9 +451,9 @@ export default function NavBar() {
           </div>
 
           {/* Tablet Navigation - Visible on medium screens */}
-          <div className="hidden lg:flex xl:hidden items-center justify-center flex-1 px-4">
+          <div className="hidden lg:flex xl:hidden items-center justify-center px-4 w-[400px] mx-auto">
             <div
-              className={`flex items-center space-x-1 rounded-full px-2 py-1 ${
+              className={`flex items-center justify-center space-x-1 rounded-full px-2 py-1 w-full max-w-[350px] mx-auto ${
                 currentTheme === "light"
                   ? "bg-gray-100/60"
                   : currentTheme === "ocean"
@@ -596,17 +596,7 @@ export default function NavBar() {
         {/* Enhanced Mobile menu with theme-specific styling */}
         {isMenuOpen && (
           <div
-            className={`lg:hidden py-2 border-t transition-all duration-500 animate-in slide-in-from-top max-h-[70vh] overflow-y-auto ${getMobileMenuStyles()} ${
-              currentTheme === "light"
-                ? "border-gray-200/60"
-                : currentTheme === "ocean"
-                ? "border-cyan-400/40"
-                : currentTheme === "forest"
-                ? "border-emerald-400/40"
-                : currentTheme === "galaxy"
-                ? "border-purple-400/40"
-                : "border-gray-700/60"
-            }`}
+            className={`lg:hidden py-2 border-t transition-all duration-500 animate-in slide-in-from-top max-h-[70vh] overflow-y-auto ${getMobileMenuStyles()}`}
           >
             {navItems.map((item, index) => {
               const Icon = item.icon;
@@ -700,7 +690,7 @@ export default function NavBar() {
       {/* Enhanced Click outside to close dropdown */}
       {(isThemeDropdownOpen || isMenuOpen) && (
         <div
-          className={`fixed inset-0 z-40 backdrop-blur-sm lg:hidden ${
+          className={`fixed inset-0 z-40 lg:hidden ${
             currentTheme === "light"
               ? "bg-gray-900/10"
               : currentTheme === "ocean"

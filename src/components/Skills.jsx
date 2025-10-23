@@ -95,22 +95,22 @@ export default function Skills() {
   const skills = [
     {
       name: "React",
-      level: 95,
+      level: 75,
       category: "frontend",
       icon: <Code className="w-6 h-6" />,
       color: "from-blue-500 to-cyan-500",
       description: "Component-based UI development",
-      experience: "4+ years",
-      projects: 10,
+      experience: "2 years",
+      projects: 8,
     },
     {
       name: "JavaScript",
-      level: 92,
+      level: 80,
       category: "frontend",
       icon: <Code className="w-6 h-6" />,
       color: "from-yellow-400 to-orange-500",
       description: "Modern ES6+ development",
-      experience: "2+ years",
+      experience: "2 years",
       projects: 15,
     },
     {
@@ -120,8 +120,8 @@ export default function Skills() {
       icon: <Code className="w-6 h-6" />,
       color: "from-blue-600 to-indigo-600",
       description: "Type-safe application development",
-      experience: "3+ years",
-      projects: 8,
+      experience: "1 year",
+      projects: 5,
     },
     {
       name: "CSS/SCSS",
@@ -130,7 +130,7 @@ export default function Skills() {
       icon: <Palette className="w-6 h-6" />,
       color: "from-purple-500 to-pink-500",
       description: "Advanced styling & animations",
-      experience: "3+ years",
+      experience: "2 years",
       projects: 15,
     },
     {
@@ -140,18 +140,18 @@ export default function Skills() {
       icon: <Database className="w-6 h-6" />,
       color: "from-green-500 to-emerald-500",
       description: "Server-side JavaScript",
-      experience: "2+ years",
+      experience: "2 years",
       projects: 10,
     },
     {
       name: "Responsive Design",
-      level: 94,
+      level: 97,
       category: "design",
       icon: <Smartphone className="w-6 h-6" />,
       color: "from-purple-500 to-violet-600",
       description: "Mobile-first development",
-      experience: "2+ years",
-      projects: 15,
+      experience: "2 years",
+      projects: 10,
     },
     {
       name: "Git & GitHub",
@@ -160,7 +160,7 @@ export default function Skills() {
       icon: <GitBranch className="w-6 h-6" />,
       color: "from-gray-400 to-gray-600",
       description: "Version control & collaboration",
-      experience: "5+ years",
+      experience: "4 years",
       projects: 82,
     },
     {
@@ -170,8 +170,8 @@ export default function Skills() {
       icon: <Cloud className="w-6 h-6" />,
       color: "from-orange-500 to-orange-600",
       description: "Cloud infrastructure & deployment",
-      experience: "2+ years",
-      projects: 12,
+      experience: "1 years",
+      projects: 2,
     },
   ];
 
@@ -289,7 +289,7 @@ export default function Skills() {
                 },
                 {
                   label: "Years Experience",
-                  value: "4+",
+                  value: "2",
                   color: "from-purple-500 to-pink-500",
                 },
               ].map((stat, index) => (
