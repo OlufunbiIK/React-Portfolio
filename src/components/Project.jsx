@@ -510,7 +510,7 @@ export default function Project() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
               {[
-                { label: "Total Projects", value: projects.size },
+                { label: "Total Projects", value: projects.length },
                 {
                   label: "Technologies",
                   value: new Set(projects.flatMap((p) => p.tech)).size,
