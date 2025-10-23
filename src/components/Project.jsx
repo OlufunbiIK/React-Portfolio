@@ -510,7 +510,7 @@ export default function Project() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4">
               {[
-                { label: "Total Projects", value: projects.length },
+                { label: "Total Projects", value: projects.size },
                 {
                   label: "Technologies",
                   value: new Set(projects.flatMap((p) => p.tech)).size,
@@ -528,9 +528,7 @@ export default function Project() {
                         : styles.text
                     }`}
                   >
-                    {typeof stat.value === "string"
-                      ? stat.value
-                      : stat.value.toString().padStart(2, "0")}
+                    {typeof stat.value === "string" ? stat.value : stat.value}
                   </div>
                   <div className={`text-xs sm:text-sm ${styles.textMuted}`}>
                     {stat.label}

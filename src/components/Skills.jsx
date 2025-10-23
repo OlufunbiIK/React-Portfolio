@@ -284,7 +284,7 @@ export default function Skills() {
                 },
                 {
                   label: "Total Projects",
-                  value: totalProjects.toString(),
+                  value: 15,
                   color: "from-blue-500 to-cyan-500",
                 },
                 {

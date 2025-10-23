@@ -175,15 +175,17 @@ export default function About() {
                 I'm a passionate{" "}
                 <span className={themeStyles.accent}>frontend developer</span>{" "}
                 with a keen eye for design and a love for creating seamless user
-                experiences. With over 3 years of experience in the field, I
-                specialize in React, JavaScript, and modern web technologies.
+                experiences. With over 2 years of experience in the field, I
+                specialize in React, Nextjs, TypeScript, JavaScript, and modern
+                web technologies.
               </p>
               <p
                 className={`text-lg leading-relaxed ${themeStyles.textSecondary}`}
               >
                 When I'm not coding, you can find me exploring new technologies,
                 contributing to open-source projects, or sharing my knowledge
-                through tech blog posts and community meetups.
+                through tech blog posts, open source contributions and community
+                meetups.
               </p>
             </div>
 
