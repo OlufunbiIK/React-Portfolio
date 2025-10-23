@@ -8,7 +8,6 @@ export default function Footer({ onBlogClick }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("terms");
 
-  // Dynamic content - you can move this to props or a config file
   const footerData = {
     name: "Olufunbi IK",
     year: new Date().getFullYear(),
@@ -41,75 +40,49 @@ export default function Footer({ onBlogClick }) {
     ],
   };
 
-  const baseClasses = {
-    footer: `py-12 border-t transition-all duration-300 ${
-      darkMode
-        ? "bg-gray-900/50 border-gray-800 backdrop-blur-sm"
-        : "bg-white/80 border-gray-200 backdrop-blur-sm"
-    }`,
-    container: "max-w-6xl mx-auto px-6",
-    text: {
-      primary: darkMode ? "text-gray-100" : "text-gray-900",
-      secondary: darkMode ? "text-gray-400" : "text-gray-600",
-      muted: darkMode ? "text-gray-500" : "text-gray-500",
-    },
-    links: {
-      base: `transition-all duration-300 hover:scale-105 ${
-        darkMode
-          ? "text-gray-400 hover:text-white"
-          : "text-gray-600 hover:text-gray-900"
-      }`,
-      social:
-        "p-2 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg",
-      quick: `text-sm transition-colors duration-200 ${
-        darkMode
-          ? "text-gray-400 hover:text-gray-200"
-          : "text-gray-600 hover:text-gray-800"
-      }`,
-      legal: `text-xs transition-colors duration-200 cursor-pointer hover:underline ${
-        darkMode
-          ? "text-gray-400 hover:text-gray-200"
-          : "text-gray-600 hover:text-gray-800"
-      }`,
-    },
-  };
-
   const openModal = (type) => {
     setModalType(type);
     setModalOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   return (
     <>
-      <footer id="footer" className={baseClasses.footer}>
-        <div className={baseClasses.container}>
+      <footer
+        id="footer"
+        className={`py-12 border-t transition-all duration-300 ${
+          darkMode
+            ? "bg-gray-900/50 border-gray-800 backdrop-blur-sm"
+            : "bg-white/80 border-gray-200 backdrop-blur-sm"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-6">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Brand Section */}
             <div className="space-y-4">
-              <h3 className={`text-xl font-bold ${baseClasses.text.primary}`}>
+              <h3
+                className={`text-xl font-bold ${
+                  darkMode ? "text-gray-100" : "text-gray-900"
+                }`}
+              >
                 {footerData.name}
               </h3>
               <p
-                className={`text-sm leading-relaxed ${baseClasses.text.secondary}`}
+                className={`text-sm leading-relaxed ${
+                  darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
               >
                 {footerData.tagline}
               </p>
               <div className="flex items-center gap-2">
-                <span className={`text-xs ${baseClasses.text.muted}`}>
-                  Made with
-                </span>
+                <span className="text-xs text-gray-500">Made with</span>
                 <Heart
                   className={`w-3 h-3 ${
                     darkMode ? "text-red-400" : "text-red-500"
                   } animate-pulse`}
                   fill="currentColor"
                 />
-                <span className={`text-xs ${baseClasses.text.muted}`}>
+                <span className="text-xs text-gray-500">
                   and lots of coffee
                 </span>
               </div>
@@ -118,7 +91,9 @@ export default function Footer({ onBlogClick }) {
             {/* Quick Links */}
             <div className="space-y-4">
               <h4
-                className={`text-lg font-semibold ${baseClasses.text.primary}`}
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-gray-100" : "text-gray-900"
+                }`}
               >
                 Quick Links
               </h4>
@@ -127,7 +102,20 @@ export default function Footer({ onBlogClick }) {
                   <a
                     key={index}
                     href={link.href}
-                    className={`${baseClasses.links.quick} inline-flex items-center gap-1 w-fit group`}
+                    onClick={(e) => {
+                      if (
+                        link.name === "Blog" &&
+                        typeof onBlogClick === "function"
+                      ) {
+                        e.preventDefault();
+                        onBlogClick();
+                      }
+                    }}
+                    className={`text-sm transition-colors duration-200 inline-flex items-center gap-1 w-fit group ${
+                      darkMode
+                        ? "text-gray-400 hover:text-gray-200"
+                        : "text-gray-600 hover:text-gray-800"
+                    }`}
                   >
                     {link.name}
                     <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -139,32 +127,35 @@ export default function Footer({ onBlogClick }) {
             {/* Connect Section */}
             <div className="space-y-4">
               <h4
-                className={`text-lg font-semibold ${baseClasses.text.primary}`}
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-gray-100" : "text-gray-900"
+                }`}
               >
                 Let's Connect
               </h4>
               <div className="flex gap-3">
-                {footerData.quickLinks.map((link, index) => (
-                  <button
+                {footerData.social.map((social, index) => (
+                  <a
                     key={index}
-                    onClick={() => {
-                      if (
-                        link.name === "Blog" &&
-                        typeof onBlogClick === "function"
-                      ) {
-                        onBlogClick();
-                      } else {
-                        window.location.href = link.href;
-                      }
-                    }}
-                    className={`${baseClasses.links.quick} inline-flex items-center gap-1 w-fit group`}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-2 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg ${
+                      darkMode
+                        ? "text-gray-400 hover:text-white"
+                        : "text-gray-600 hover:text-gray-900"
+                    } ${social.color}`}
+                    aria-label={social.name}
                   >
-                    {link.name}
-                    <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </button>
+                    {social.icon}
+                  </a>
                 ))}
               </div>
-              <p className={`text-xs ${baseClasses.text.secondary}`}>
+              <p
+                className={`text-xs ${
+                  darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 Feel free to reach out for collaborations or just to say hi!
               </p>
             </div>
@@ -177,20 +168,32 @@ export default function Footer({ onBlogClick }) {
             }`}
           >
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <p className={`text-sm ${baseClasses.text.secondary}`}>
+              <p
+                className={`text-sm ${
+                  darkMode ? "text-gray-400" : "text-gray-600"
+                }`}
+              >
                 © {footerData.year} {footerData.name}. All rights reserved.
               </p>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => openModal("privacy")}
-                  className={baseClasses.links.legal}
+                  className={`text-xs transition-colors duration-200 cursor-pointer hover:underline ${
+                    darkMode
+                      ? "text-gray-400 hover:text-gray-200"
+                      : "text-gray-600 hover:text-gray-800"
+                  }`}
                 >
                   Privacy Policy
                 </button>
-                <span className={`text-xs ${baseClasses.text.muted}`}>•</span>
+                <span className="text-xs text-gray-500">•</span>
                 <button
                   onClick={() => openModal("terms")}
-                  className={baseClasses.links.legal}
+                  className={`text-xs transition-colors duration-200 cursor-pointer hover:underline ${
+                    darkMode
+                      ? "text-gray-400 hover:text-gray-200"
+                      : "text-gray-600 hover:text-gray-800"
+                  }`}
                 >
                   Terms of Service
                 </button>
@@ -206,7 +209,7 @@ export default function Footer({ onBlogClick }) {
                   darkMode ? "bg-green-400" : "bg-green-500"
                 }`}
               ></div>
-              <span className={`text-xs ${baseClasses.text.muted}`}>
+              <span className="text-xs text-gray-500">
                 Currently available for new projects
               </span>
             </div>
@@ -214,8 +217,11 @@ export default function Footer({ onBlogClick }) {
         </div>
       </footer>
 
-      {/* Legal Modal */}
-      <LegalModal isOpen={modalOpen} onClose={closeModal} type={modalType} />
+      <LegalModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        type={modalType}
+      />
     </>
   );
 }
