@@ -19,14 +19,4 @@ export const projects = [
     github: "#",
     live: "#",
   },
-  {
-    title: "Weather Dashboard",
-    description:
-      "Beautiful weather application with geolocation, interactive charts, and 7-day forecasts using OpenWeather API.",
-    tech: ["React", "Chart.js", "REST API", "CSS3", "Responsive"],
-    image:
-      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500&h=300&fit=crop",
-    github: "#",
-    live: "#",
-  },
 ];
