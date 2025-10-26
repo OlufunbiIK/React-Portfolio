@@ -291,9 +291,9 @@ export default function Contact() {
                         onChange={handleInputChange}
                         required
                         placeholder="Your full name"
-                        className={`w-full p-4 rounded-lg text-black ${
-                          styles.inputBg
-                        } ${styles.border} ${
+                        className={`w-full p-4 rounded-lg ${
+                          isDarkTheme ? "text-white" : "text-black"
+                        } ${styles.inputBg} ${styles.border} ${
                           styles.focusBorder
                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                           currentTheme === "ocean"
@@ -318,9 +318,9 @@ export default function Contact() {
                         onChange={handleInputChange}
                         required
                         placeholder="your.email@example.com"
-                        className={`w-full p-4 rounded-lg text-black ${
-                          styles.inputBg
-                        } ${styles.border} ${
+                        className={`w-full p-4 rounded-lg ${
+                          isDarkTheme ? "text-white" : "text-black"
+                        } ${styles.inputBg} ${styles.border} ${
                           styles.focusBorder
                         } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                           currentTheme === "ocean"
@@ -346,9 +346,9 @@ export default function Contact() {
                       onChange={handleInputChange}
                       required
                       placeholder="What's this about?"
-                      className={`w-full p-4 rounded-lg text-black ${
-                        styles.inputBg
-                      } ${styles.border} ${
+                      className={`w-full p-4 rounded-lg ${
+                        isDarkTheme ? "text-white" : "text-black"
+                      } ${styles.inputBg} ${styles.border} ${
                         styles.focusBorder
                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 ${
                         currentTheme === "ocean"
@@ -373,9 +373,9 @@ export default function Contact() {
                       required
                       rows="6"
                       placeholder="Tell me about your project, ideas, or just say hello!"
-                      className={`w-full p-4 rounded-lg text-black ${
-                        styles.inputBg
-                      } ${styles.border} ${
+                      className={`w-full p-4 rounded-lg ${
+                        isDarkTheme ? "text-white" : "text-black"
+                      } ${styles.inputBg} ${styles.border} ${
                         styles.focusBorder
                       } transition-all duration-200 focus:ring-2 focus:ring-opacity-50 resize-none ${
                         currentTheme === "ocean"
