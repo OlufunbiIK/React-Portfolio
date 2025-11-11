@@ -9,7 +9,6 @@ import {
   TrendingUp,
   Award,
   Target,
-  Layers,
   GitBranch,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
@@ -20,7 +19,6 @@ export default function Skills() {
   const [visibleSkills, setVisibleSkills] = useState(new Set());
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [activeCategory, setActiveCategory] = useState("all");
-  const sectionRef = useRef();
   const skillRefs = useRef({});
 
   // Theme styles
@@ -216,10 +214,6 @@ export default function Skills() {
   const averageSkill = Math.round(
     filteredSkills.reduce((acc, skill) => acc + skill.level, 0) /
       filteredSkills.length
-  );
-  const totalProjects = filteredSkills.reduce(
-    (acc, skill) => acc + skill.projects,
-    0
   );
 
   return (

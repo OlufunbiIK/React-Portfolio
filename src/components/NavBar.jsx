@@ -1,28 +1,10 @@
 import { useTheme } from "./providers/ThemeContext";
-import {
-  Moon,
-  Sun,
-  Home,
-  User,
-  Code,
-  FolderOpen,
-  Mail,
-  Droplets,
-  Trees,
-  Sparkles,
-} from "lucide-react";
+import { Moon, Sun, Home, User, Code, FolderOpen, Mail } from "lucide-react";
 import { useState, useEffect } from "react";
 import FunbiDevLogo from "./utils/Logo";
 
 export default function NavBar() {
-  const {
-    currentTheme,
-    theme,
-    isDarkTheme,
-    toggleTheme,
-    setTheme,
-    availableThemes,
-  } = useTheme();
+  const { currentTheme, toggleTheme } = useTheme();
   const { activeSection } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
