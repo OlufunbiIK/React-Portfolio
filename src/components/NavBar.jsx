@@ -596,7 +596,7 @@ export default function NavBar() {
         {/* Enhanced Mobile menu with theme-specific styling */}
         {isMenuOpen && (
           <div
-            className={`lg:hidden py-2 border-t transition-all duration-500 animate-in slide-in-from-top max-h-[70vh] overflow-y-auto ${getMobileMenuStyles()}`}
+            className={`lg:hidden py-2 border-t transition-all duration-500 animate-in slide-in-from-top max-h-[70vh] overflow-y-auto relative z-50 ${getMobileMenuStyles()}`}
           >
             {navItems.map((item, index) => {
               const Icon = item.icon;
@@ -606,7 +606,7 @@ export default function NavBar() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.name)}
-                  className={`relative flex items-center space-x-3 w-full text-right px-3 sm:px-4 py-3 sm:py-4 mx-1 sm:mx-2 my-1 capitalize transition-all duration-500 rounded-xl overflow-hidden transform hover:scale-105 hover:-translate-y-1 group ${
+                  className={`relative flex items-center justify-between w-full px-3 sm:px-4 py-3 sm:py-4 mx-1 sm:mx-2 my-1 capitalize transition-all duration-500 rounded-xl overflow-hidden transform hover:scale-105 hover:-translate-y-1 group ${
                     isActive
                       ? "text-white shadow-2xl shadow-purple-500/50"
                       : currentTheme === "light"
@@ -629,7 +629,7 @@ export default function NavBar() {
                   ></div>
 
                   {/* Floating elements */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                     <div
                       className="absolute w-1 h-1 bg-white rounded-full animate-ping"
                       style={{
@@ -648,7 +648,7 @@ export default function NavBar() {
                     ></div>
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-end space-x-reverse space-x-3 gap-2 w-full">
+                  <div className="relative z-10 flex items-center space-x-3 w-full">
                     <Icon
                       className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-500 transform group-hover:rotate-12 group-hover:scale-110 flex-shrink-0 ${
                         isActive
@@ -659,7 +659,7 @@ export default function NavBar() {
                       }`}
                     />
                     <span
-                      className={`text-sm sm:text-base font-semibold transition-all duration-500 ${
+                      className={`text-sm sm:text-base font-semibold transition-all duration-500 flex-grow text-left ${
                         isActive
                           ? "drop-shadow-lg text-white"
                           : currentTheme === "light"

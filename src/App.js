@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import "./index.css";
 import { HeroSection } from "./components/HeroSection";
@@ -11,6 +11,7 @@ import About from "./components/About";
 import { ThemeProvider, useTheme } from "./components/providers/ThemeContext";
 import Blog from "./components/Blog";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Loader from "./components/Loader";
 // ❌ You used <Route path="/blog" element={<Blog />} /> but didn’t import React Router or Blog
 // So either remove it or properly configure React Router if you have routes
 
@@ -133,6 +134,16 @@ function AnimatedParticles({ theme }) {
 // Main Content Wrapper (for the homepage)
 function HomePage() {
   const { theme, setActiveSection } = useTheme();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time (minimum 1.5 seconds)
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,6 +162,10 @@ function HomePage() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [setActiveSection]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div
