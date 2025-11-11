@@ -94,14 +94,13 @@ const FloatingIcon = ({ icon: Icon, delay, theme }) => {
     </div>
   );
 };
+const words = ["Frontend Developer", "React Specialist", "Web Creator"];
 
 export const HeroSection = () => {
   const { currentTheme, theme, isDarkTheme } = useTheme();
   const [typedText, setTypedText] = useState("");
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const words = ["Frontend Developer", "React Specialist", "Web Creator"];
 
   // Typing animation effect
   useEffect(() => {
@@ -122,7 +121,7 @@ export const HeroSection = () => {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [typedText, isDeleting, currentWordIndex, words]);
+  }, [typedText, isDeleting, currentWordIndex]);
 
   const getThemeSpecificStyles = () => {
     switch (currentTheme) {

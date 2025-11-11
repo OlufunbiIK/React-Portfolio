@@ -8,7 +8,6 @@ export default function NavBar() {
   const { activeSection } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const THEME_ICONS = {
     light: (
@@ -40,15 +39,6 @@ export default function NavBar() {
     { name: "projects", icon: FolderOpen },
     { name: "contact", icon: Mail },
   ];
-
-  // Track mouse position for surreal effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   // Close mobile menu on window resize
   useEffect(() => {
@@ -109,23 +99,6 @@ export default function NavBar() {
           }
         }
       }, 100);
-    }
-  };
-
-  const getThemeIcon = (themeName) => {
-    switch (themeName) {
-      case "dark":
-        return "🌙";
-      case "light":
-        return "☀️";
-      case "ocean":
-        return "🌊";
-      case "forest":
-        return "🌲";
-      case "galaxy":
-        return "🌌";
-      default:
-        return "🎨";
     }
   };
 

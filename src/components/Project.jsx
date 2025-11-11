@@ -5,11 +5,9 @@ import {
   ChevronRight,
   Play,
   Pause,
-  Sun,
-  Moon,
 } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-import { ThemeProvider, useTheme } from "./providers/ThemeContext";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { useTheme } from "./providers/ThemeContext";
 import money from "../assets/images/money-tracker.png";
 import know from "../assets/images/knowiz.png";
 import food from "../assets/images/food.png";
@@ -74,7 +72,7 @@ const projects = [
 ];
 
 export default function Project() {
-  const { currentTheme, isDarkTheme, toggleTheme } = useTheme();
+  const { currentTheme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -118,9 +116,21 @@ export default function Project() {
 
     return baseStyles[currentTheme] || baseStyles.dark;
   };
+  const prevProject = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : projects.length - 1));
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [isTransitioning]);
+
+  const nextProject = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev < projects.length - 1 ? prev + 1 : 0));
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [isTransitioning]);
 
   const styles = getThemeStyles();
-
   useEffect(() => {
     if (isAutoPlay) {
       autoPlayRef.current = setInterval(() => {
@@ -129,7 +139,7 @@ export default function Project() {
     }
 
     return () => clearInterval(autoPlayRef.current);
-  }, [isAutoPlay, currentIndex]);
+  }, [isAutoPlay, nextProject, prevProject]);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -159,21 +169,7 @@ export default function Project() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [isAutoPlay]);
-
-  const nextProject = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev < projects.length - 1 ? prev + 1 : 0));
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
-  const prevProject = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : projects.length - 1));
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
+  }, [isAutoPlay, nextProject, prevProject]); // ✅ Add these dependencies
 
   const goToProject = (index) => {
     if (isTransitioning || index === currentIndex) return;
